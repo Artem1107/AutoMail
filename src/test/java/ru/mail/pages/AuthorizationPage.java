@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.sql.DriverManager.getDriver;
 import static ru.mail.RunTest.driver;
 
 public class AuthorizationPage {
@@ -21,6 +22,9 @@ public class AuthorizationPage {
     /**
      * Описание элементов
      */
+    //Фрейм окно авторизации
+    @FindBy(xpath = ".//iframe[contains(@class,'ag-popup__frame__layout__iframe')]")
+    private WebElement frame;
 
     //Поле Имя акаунта
     @FindBy(xpath = "//input[@name='username']")
@@ -61,5 +65,12 @@ public class AuthorizationPage {
     public void clickEntryBtn() {
         entryBtn.click();
     }
+
+    //Метод перехода во фрейм
+    public void frame() {
+        driver.switchTo().frame(frame);
+    }
+
+
 
 }

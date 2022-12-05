@@ -38,6 +38,8 @@ public class RunTest {
     public void login() {
         LoginAndSendMail.login();
         LoginAndSendMail.sendLetter();
+        //System.out.println("Отправлено");
+        LoginAndSendMail.checkingMail();
     }
 
    /* @AfterClass

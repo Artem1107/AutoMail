@@ -1,5 +1,7 @@
 package ru.mail.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,6 +52,14 @@ public class LetterPage {
     private WebElement attachBtn;
 
 
+
+
+
+    /* //элемент элемент
+    @FindBy(xpath = "//a[@class='layer__link']")
+    private WebElement el;*/
+
+
     /**
      * Методы
      */
@@ -75,6 +85,7 @@ public class LetterPage {
     public void inputReceiverField(String summary) {
         receiverField.sendKeys(summary);
     }
+
     //Метод ввода тела письма
     public void inputLetterField(String text) {
         //letterField.click();
@@ -86,6 +97,13 @@ public class LetterPage {
         sendBtn.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+
+    //кликнем ескейп
+    public void esc() {
+        driver.findElement(By.xpath("//a[@class='layer__link']")).sendKeys(Keys.ESCAPE);
+    }
+
+
 
 
 }

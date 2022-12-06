@@ -12,7 +12,7 @@ import static ru.mail.RunTest.*;
 
 
 public class LoginAndSendMail {
-    String signa;
+    static String fuckingSignature;
 
     public static void login() {
 
@@ -79,8 +79,8 @@ public class LoginAndSendMail {
     }
 
     public static void checkingSign(){
-        //Получаем текст письма и сравниваем с тем что наизменяли
-        Assert.assertEquals(letterPage.getSignText(), ConfProperties.getProperty(ConfProperties.getProperty("NewSign")));
+        //Получаем подпись и сравниваем с тем что наизменяли
+        Assert.assertEquals(letterPage.getSignText(),fuckingSignature);
 
 
 
@@ -120,9 +120,11 @@ public class LoginAndSendMail {
         allSettingPage.clickEditSignBtn();
         //измненяем подпись
         allSettingPage.editSignText("QA " + Math.random());
+        fuckingSignature=allSettingPage.getSignText();
 
-        allSettingPage.getSignText();
-        si
+
+        //System.out.println();
+
         //Sign.getSign(allSettingPage.getSignText());
 
 

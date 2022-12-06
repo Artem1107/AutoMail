@@ -15,7 +15,11 @@ public class SettingPage {
 
     //Кнопка Все Настройки
     @FindBy(xpath = "//span[text()='Все настройки']")
-    private WebElement settingsBtn;
+    private WebElement allSettingsBtn;
+
+    //метод перехода во все настройки
+    public void clickAllSettingsBtn() {
+        allSettingsBtn.click();}
 
 
 }

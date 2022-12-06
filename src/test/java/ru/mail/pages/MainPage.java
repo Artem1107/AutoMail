@@ -45,11 +45,11 @@ public class MainPage {
     private WebElement textInLetter;
 
     //Кнопка Настройки
-    @FindBy(xpath = "//div[text()='Настройки']")
+    @FindBy(xpath = ".//span[@data-highlighted-class='button2_highlighted' and @title = 'Настройки']")
     private WebElement settingsBtn;
 
 
-    //Закрытие банера
+    //Значек закрытие банера
     @FindBy(xpath = "//div[@class='ph-project-promo-close-icon__container svelte-m7oyyo']")
     private WebElement closeВlackBanner;
 
@@ -84,6 +84,7 @@ public class MainPage {
         String textLetter = textInLetter.getText();
         return textLetter;
     }
+
 
     //метод для получения текста письма
     public String getSummaryInLetter() {
@@ -121,7 +122,10 @@ public class MainPage {
     public void clickSummaryLetter() {
         summaryLetter.click();
     }
-
+    //метод перехода в настройки
+    public void clickSettingsBtn() {
+        settingsBtn.click();
+    }
 
     }
 

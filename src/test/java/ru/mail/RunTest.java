@@ -5,10 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.mail.pages.AuthorizationPage;
-import ru.mail.pages.LetterPage;
-import ru.mail.pages.StartPage;
-import ru.mail.pages.MainPage;
+import ru.mail.pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +14,12 @@ public class RunTest {
     public static AuthorizationPage authorizationPage;
     public static MainPage mainPage;
     public static LetterPage letterPage;
+    public static SettingPage settingPage;
+    public static AllSettingPage allSettingPage;
+
     public static WebDriver driver;
+
+
 
     @BeforeClass
     public static void setup() {
@@ -31,6 +33,8 @@ public class RunTest {
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         letterPage = new LetterPage(driver);
+        settingPage = new SettingPage(driver);
+        allSettingPage = new AllSettingPage(driver);
 
     }
 
@@ -38,14 +42,17 @@ public class RunTest {
     public void login() {
         LoginAndSendMail.login();
         LoginAndSendMail.sendLetter();
-        //System.out.println("Отправлено");
         LoginAndSendMail.checkingMail();
+        LoginAndSendMail.signСhange();
+        LoginAndSendMail.sendLetter();
+        LoginAndSendMail.checkingMail();
+        LoginAndSendMail.checkingSign();
     }
 
-   /* @AfterClass
-    public static void tearDown() {
-        driver.quit();
-    }*/
+   // @AfterClass
+  //  public static void tearDown() {
+   //     driver.quit();
+ //   }
 }
 
 

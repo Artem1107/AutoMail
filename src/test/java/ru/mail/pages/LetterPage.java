@@ -95,7 +95,6 @@ public class LetterPage {
     //метод нажатия на Отправить
     public void clickSendBtn() {
         sendBtn.click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     //кликнем ескейп

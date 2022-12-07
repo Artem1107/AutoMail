@@ -47,6 +47,8 @@ public class RunTest {
         LoginAndSendMail.sendLetter();
         LoginAndSendMail.checkingMail();
         LoginAndSendMail.checkingSign();
+        LoginAndSendMail.goToIncoming();
+        LoginAndSendMail.deleteLetter();
     }
 
    // @AfterClass

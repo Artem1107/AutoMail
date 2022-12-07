@@ -81,9 +81,11 @@ public class LoginAndSendMail {
     public static void checkingSign(){
         //Получаем подпись и сравниваем с тем что наизменяли
         Assert.assertEquals(letterPage.getSignText(),fuckingSignature);
+    }
 
-
-
+    public static void goToIncoming(){
+       //переход во входящие
+       mainPage.clickInboxBtn();
     }
 
     public static void signСhange() {
@@ -111,6 +113,7 @@ public class LoginAndSendMail {
                 break;
             }
         }
+
         driver.switchTo().window(window2);// переключаемся на другую вкладку
         System.out.println("урл страницы 2 " + driver.getCurrentUrl());
 
@@ -120,22 +123,18 @@ public class LoginAndSendMail {
         allSettingPage.clickEditSignBtn();
         //измненяем подпись
         allSettingPage.editSignText("QA " + Math.random());
-        fuckingSignature=allSettingPage.getSignText();
-
-
-        //System.out.println();
-
-        //Sign.getSign(allSettingPage.getSignText());
-
-
-
-        //System.out.println("новая подпись " + sign);
+        fuckingSignature = allSettingPage.getSignText();
         //созраняем новую подпись
         allSettingPage.clickSaveSignBtn();
         //Возвращаемся в почту
         allSettingPage.clickGoMailBtn();
     }
 
+    public static void deleteLetter() {
+        mainPage.clickAllCheckboxAboutLettter();
+
+
+    }
 
 
 

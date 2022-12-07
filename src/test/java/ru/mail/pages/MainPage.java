@@ -3,12 +3,18 @@ package ru.mail.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage {
-    private final WebDriver driver;
+import java.time.Duration;
+import java.util.List;
+import java.util.ArrayList;
 
+public class MainPage {
+
+
+    private final WebDriver driver;
 
     public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -29,7 +35,7 @@ public class MainPage {
     private WebElement writeLetterBtn;
 
     //Кнопка Входящие
-    @FindBy(xpath = "//div[text()='Входящие']")
+    @FindBy(xpath = "//a[@class = 'nav__item js-shortcut nav__item_active nav__item_shortcut nav__item_child-level_0']")
     private WebElement inboxBtn;
 
     //Тема письма
@@ -65,12 +71,42 @@ public class MainPage {
     @FindBy(xpath = "//a[@class='llc llc_has-indent llc_new llc_new-selection js-letter-list-item js-tooltip-direction_letter-bottom'][1]//span[@class='llc__subject llc__subject_unread']")
     private WebElement lastReceivedLetter;
 
+    //иконка над чекбоксом сообщений
+    @FindBy(xpath = "//div[@class='llc__avatar']")
+    private WebElement  iconAboutLettter;
 
-
+    //чекбоксы сообщений
+    @FindBy(xpath = "//div[@class='checkbox__box checkbox__box_checked']")
+    private WebElement  checkboxAboutLettter;
 
     /**
      * Дальше методы
      */
+
+    //Получаем все чекбоксы письма и кликаем на них
+
+    public void clickAllCheckboxAboutLettter() {
+        Actions actions = new Actions(driver);
+        int a=0;
+
+        List <WebElement> icons = driver.findElements(By.xpath("//div[@class='llc__avatar']"));
+        for (WebElement icon:icons){
+            actions.doubleClick(icon);
+            a++;}
+        System.out.println(a);
+
+
+        /**
+            List <WebElement> checkboxes = driver.findElements(By.xpath("checkboxAboutLettter"));
+            for (WebElement checkbox:checkboxes) {
+                actions.moveToElement(icon);
+                actions.click(checkbox);
+            }
+         **/
+    }
+
+
+
 
     //метод для получения текста темы письма
     public String getSummaryLetter() {

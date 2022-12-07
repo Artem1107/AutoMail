@@ -85,14 +85,15 @@ public class MainPage {
 
     //Получаем все чекбоксы письма и кликаем на них
 
-    public void clickAllCheckboxAboutLettter() {
+    public void clickAllCheckboxAboutLettter() throws InterruptedException {
         Actions actions = new Actions(driver);
         int a=0;
 
-        List <WebElement> icons = driver.findElements(By.xpath("//div[@class='llc__avatar']"));
+        List <WebElement> icons = driver.findElements(By.xpath("//span[@class='ll-av__img']"));
         for (WebElement icon:icons){
-            actions.doubleClick(icon);
+            actions.moveToElement(icon).click();
             a++;}
+        Thread.sleep(2000);
         System.out.println(a);
 
 

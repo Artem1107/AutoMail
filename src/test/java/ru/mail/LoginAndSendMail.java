@@ -131,7 +131,13 @@ public class LoginAndSendMail {
     }
 
     public static void deleteLetter() {
-        mainPage.clickAllCheckboxAboutLettter();
+        try {
+            mainPage.clickAllCheckboxAboutLettter();
+        }
+        catch (NoSuchElementException | InterruptedException e){
+
+        }
+
 
 
     }

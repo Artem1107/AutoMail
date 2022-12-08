@@ -54,7 +54,7 @@ public class RunTest {
 
     @AfterClass
   public static void tearDown() throws InterruptedException {
-       Thread.sleep(20000);
+       Thread.sleep(10000);
       driver.quit();
   }
 }

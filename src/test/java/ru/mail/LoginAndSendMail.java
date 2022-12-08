@@ -3,6 +3,7 @@ package ru.mail;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -90,8 +91,11 @@ public class LoginAndSendMail {
     }
 
     public static void signСhange() {
+
+
         //Переходим в настроки учетки
-        mainPage.clickSettingsBtn();
+        mainPage.clickSettingsBtn2();
+
         //Переходим во все настроки
         settingPage.clickAllSettingsBtn();
 

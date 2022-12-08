@@ -54,6 +54,10 @@ public class MainPage {
     @FindBy(xpath = ".//span[@data-highlighted-class='button2_highlighted' and @title = 'Настройки']")
     private WebElement settingsBtn;
 
+    //Кнопка Настройки для большого экрана
+    @FindBy(xpath = ".//div[@class='button2__txt' and text()='Настройки']")
+    private WebElement settingsBtn2;
+
 
     //Значек закрытие банера
     @FindBy(xpath = "//div[@class='ph-project-promo-close-icon__container svelte-m7oyyo']")
@@ -169,6 +173,10 @@ public class MainPage {
     //метод перехода в настройки
     public void clickSettingsBtn() {
         settingsBtn.click();
+    }
+    //метод перехода в настройки2
+    public void clickSettingsBtn2() {
+        settingsBtn2.click();
     }
 
     }

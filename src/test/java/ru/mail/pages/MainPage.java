@@ -79,6 +79,14 @@ public class MainPage {
     @FindBy(xpath = "//div[@class='checkbox__box checkbox__box_checked']")
     private WebElement  checkboxAboutLettter;
 
+    //чекбоксы сообщений
+    @FindBy(xpath = "//span[@class='button2 button2_has-ico button2_has-ico-s button2_delete button2_pure button2_ico-text-top button2_hover-support js-shortcut']")
+    private WebElement  deleteLeterBtn;
+
+    //Надпись Писем нет
+    @FindBy(xpath = ".//span[@class='octopus__title']")
+    private WebElement letterNo;
+
     /**
      * Дальше методы
      */
@@ -91,23 +99,22 @@ public class MainPage {
 
         List <WebElement> icons = driver.findElements(By.xpath("//span[@class='ll-av__img']"));
         for (WebElement icon:icons){
-            actions.moveToElement(icon).click();
+            actions.moveToElement(icon).click().perform();
             a++;}
-        Thread.sleep(2000);
         System.out.println(a);
 
-
-        /**
-            List <WebElement> checkboxes = driver.findElements(By.xpath("checkboxAboutLettter"));
-            for (WebElement checkbox:checkboxes) {
-                actions.moveToElement(icon);
-                actions.click(checkbox);
-            }
-         **/
     }
 
+    //Получаем надпись писем нет
+    public String getTextLetterNo(){
+       String letterNoText = letterNo.getText();
+       return letterNoText;
+    }
 
-
+    //метод нажатия на сообщения
+    public void clickDeleteLeterBtn() {
+        deleteLeterBtn.click();
+    }
 
     //метод для получения текста темы письма
     public String getSummaryLetter() {

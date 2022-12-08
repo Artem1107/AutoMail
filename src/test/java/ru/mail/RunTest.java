@@ -44,6 +44,7 @@ public class RunTest {
         LoginAndSendMail.sendLetter();
         LoginAndSendMail.checkingMail();
         LoginAndSendMail.signСhange();
+
         LoginAndSendMail.sendLetter();
         LoginAndSendMail.checkingMail();
         LoginAndSendMail.checkingSign();
@@ -51,10 +52,11 @@ public class RunTest {
         LoginAndSendMail.deleteLetter();
     }
 
-   // @AfterClass
-  //  public static void tearDown() {
-   //     driver.quit();
- //   }
+    @AfterClass
+  public static void tearDown() throws InterruptedException {
+       Thread.sleep(20000);
+      driver.quit();
+  }
 }
 
 

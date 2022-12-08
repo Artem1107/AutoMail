@@ -58,6 +58,7 @@ public class LoginAndSendMail {
             letterPage.clickSendBtn();
             //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
             letterPage.esc();
+
         }
 
 
@@ -132,7 +133,13 @@ public class LoginAndSendMail {
 
     public static void deleteLetter() {
         try {
+            //выделяем
             mainPage.clickAllCheckboxAboutLettter();
+            //Удаляем
+            mainPage.clickDeleteLeterBtn();
+            //Проверяем что удалилось
+            Assert.assertEquals(mainPage.getTextLetterNo(), "Писем нет");
+            System.out.println(mainPage.getTextLetterNo());
         }
         catch (NoSuchElementException | InterruptedException e){
 

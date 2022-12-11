@@ -55,6 +55,8 @@ public class LoginAndSendMail {
             letterPage.inputSummaryField(ConfProperties.getProperty("summaryLetter"));
             //заполнить тело письма
             letterPage.inputLetterField(ConfProperties.getProperty("textLetter"));
+            //кликаем прикрепить файл
+            letterPage.clickAttachBtn(ConfProperties.getProperty("file"));
             //Кликаем отправить
             letterPage.clickSendBtn();
             //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
@@ -77,7 +79,12 @@ public class LoginAndSendMail {
         Assert.assertEquals(mainPage.getSummaryInLetter(), ConfProperties.getProperty("summaryLetter"));
         //Получаем текст письма и сравниваем с тем что отправляли
         Assert.assertEquals(mainPage.getTextInLetter(), ConfProperties.getProperty("textLetter"));
-        System.out.println(mainPage.getSummaryInLetter() + ' ' + mainPage.getTextInLetter());
+        //Проверяем наместе ли файл
+        //Assert.assertEquals(mainPage.getFileName(), ConfProperties.getProperty("autoTest.doc"));
+        //Скачиваем файл
+        mainPage.downloadFile();
+
+
     }
 
     public static void checkingSign(){
@@ -94,7 +101,7 @@ public class LoginAndSendMail {
 
 
         //Переходим в настроки учетки
-        mainPage.clickSettingsBtn2();
+        mainPage.clickSettingsBtn();
 
         //Переходим во все настроки
         settingPage.clickAllSettingsBtn();

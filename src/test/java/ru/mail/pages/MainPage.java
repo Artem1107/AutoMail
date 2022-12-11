@@ -91,6 +91,20 @@ public class MainPage {
     @FindBy(xpath = ".//span[@class='octopus__title']")
     private WebElement letterNo;
 
+    //Файл в открытом письме
+    @FindBy(xpath = "//div[@class = 'wrapperBg-0-2-21']")
+    private WebElement file;
+
+    //Файл в открытом письме
+    @FindBy(xpath = "//small[@class = 'base-0-2-30 small-0-2-39 auto-0-2-55' and text()='autoTest.doc']")
+    private WebElement fileName;
+
+    //Ссылка чкачать файл
+    @FindBy(xpath = "//a[@data-name= 'download-link']")
+    private WebElement downloadFile;
+
+
+
     /**
      * Дальше методы
      */
@@ -178,6 +192,21 @@ public class MainPage {
     public void clickSettingsBtn2() {
         settingsBtn2.click();
     }
+
+    //метод скачать файл
+    public void downloadFile() {
+        downloadFile.click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Получаем название файла
+    public String getFileName(){
+        String name = fileName.getText();
+        return name;}
 
     }
 

@@ -48,17 +48,8 @@ public class LetterPage {
     private WebElement sendBtn;
 
     //Кнопка Прикрепить файл
-    @FindBy(xpath = "//div[text()='Прикрепить файл']")
+    @FindBy(xpath = "//input[@class = 'desktopInput--3cWPE']")
     private WebElement attachBtn;
-
-
-
-
-
-    /* //элемент элемент
-    @FindBy(xpath = "//a[@class='layer__link']")
-    private WebElement el;*/
-
 
     /**
      * Методы
@@ -100,6 +91,10 @@ public class LetterPage {
     //кликнем ескейп
     public void esc() {
         driver.findElement(By.xpath("//a[@class='layer__link']")).sendKeys(Keys.ESCAPE);
+    }
+    //клик на прикрепить файл
+    public void clickAttachBtn(String text) {
+        attachBtn.sendKeys(text);
     }
 
 

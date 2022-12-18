@@ -4,18 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.mail.ConfProperties;
+import ru.mail.steps.Base;
 
-import static ru.mail.RunTest.driver;
 
-public class AllSettingPage {
+public class AllSettingPage extends Base {
 
-    private final WebDriver driver;
 
-    public AllSettingPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     // блок Имя и подпись
     @FindBy(xpath = "//p[text()='Изменить имя отправителя, добавить и изменить подпись']")
@@ -37,6 +31,10 @@ public class AllSettingPage {
     //Кнопка вернуться в почту
     @FindBy(xpath = "//span[text()='Вернуться в почту']")
     private WebElement goMailBtn;
+
+    public AllSettingPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     /**

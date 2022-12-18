@@ -5,18 +5,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import ru.mail.helpers.ConfProperties;
+import ru.mail.steps.Base;
 
-import java.util.concurrent.TimeUnit;
+public class LetterPage extends Base {
 
-public class LetterPage {
-    private final WebDriver driver;
-
-
-    public LetterPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     /**
      * Описание элементов
@@ -51,25 +44,29 @@ public class LetterPage {
     @FindBy(xpath = "//input[@class = 'desktopInput--3cWPE']")
     private WebElement attachBtn;
 
+    public LetterPage(WebDriver driver) {
+        super(driver);
+    }
+
     /**
      * Методы
      */
 
     //метод для получения текста подсказки
     public String komuText() {
-        String komuText = komu.getText();
-        return komuText;
+        String text = getText(komu);
+        return text;
     }
 
     //метод для получения текста подписи
     public String getSignText() {
-        String iconText = signField.getText();
+        String iconText = getText(signField);
         return iconText;
     }
 
     //Метод ввода темы
-    public void inputSummaryField(String mail) {
-        summaryField.sendKeys(mail);
+    public void inputSummaryField() {
+        inputText(summaryField, ConfProperties.getProperty("summaryLetter"));
     }
 
     //Метод ввода адреста
@@ -92,12 +89,10 @@ public class LetterPage {
     public void esc() {
         driver.findElement(By.xpath("//a[@class='layer__link']")).sendKeys(Keys.ESCAPE);
     }
+
     //клик на прикрепить файл
     public void clickAttachBtn(String text) {
         attachBtn.sendKeys(text);
     }
-
-
-
 
 }

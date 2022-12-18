@@ -1,4 +1,4 @@
-package ru.mail;
+package ru.mail.helpers;
 
 import java.io.FileInputStream;
 import java.io.IOException;

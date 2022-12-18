@@ -1,71 +1,93 @@
-package ru.mail;
+package ru.mail.testLogin;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.junit.Test;
+import ru.mail.BaseDriverClass;
+import ru.mail.helpers.ConfProperties;
+import ru.mail.pages.*;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import static ru.mail.RunTest.*;
+public class LoginTest extends BaseDriverClass {
+    private StartPage startPage;
+    private AuthorizationPage authorizationPage;
+    private MainPage mainPage;
+    private SettingPage settingPage;
+    private LetterPage letterPage;
+    private AllSettingPage allSettingPage;
 
+    @Test
+    public void loginTest() {
+        startPage = new StartPage(getDriver());
+        authorizationPage = new AuthorizationPage(getDriver());
+        mainPage = new MainPage(getDriver());
+        settingPage = new SettingPage(getDriver());
+        letterPage = new LetterPage(getDriver());
+        allSettingPage = new AllSettingPage(getDriver());
+       login();
+       sendLetter();
+       checkingMail();
+       signСhange();
+       sendLetter();
+       checkingMail();
+       checkingSign();
+       goToIncoming();
+       deleteLetter();
+    }
+     String fuckingSignature;
 
-public class LoginAndSendMail {
-    static String fuckingSignature;
+    public void login() {
 
-    public static void login() {
-
-            // Кликаем войти
-            startPage.clickEntryBtn();
-            //Вводим логин
-            authorizationPage.frame();//переключаемся в фрейм
-            authorizationPage.inputLogin(ConfProperties.getProperty("mail"));
-            //Кликаем ввести пароль
-            authorizationPage.clickGoInputPassBtn();
-            //Вводим пароль
-            authorizationPage.inputPassword(ConfProperties.getProperty("password"));
-            //Кликаем войти
-            authorizationPage.clickEntryBtn();
-            driver.switchTo().defaultContent();//выходим из фрейма
-            //проверяем что мы авторизовались
-            String user = mainPage.getTextUserNameMenu();
-            Assert.assertEquals(ConfProperties.getProperty("mail"), user);
-            //System.out.println(user);
-            try {
-                //Проверяем банер и закрываем его
-                mainPage.clickCloseВlackBanner();
-            } catch (NoSuchElementException e) {
-                //если банера нет то ещё лучше
-                System.out.println("банера нет");
-                //идём дальше
+        // Кликаем войти
+        startPage.clickEntryBtn();
+        //Вводим логин
+        authorizationPage.frame();//переключаемся в фрейм
+        authorizationPage.inputLogin();
+        //Кликаем ввести пароль
+        authorizationPage.clickGoInputPassBtn();
+        //Вводим пароль
+        authorizationPage.inputPassword();
+        //Кликаем войти
+        authorizationPage.clickEntryBtn();
+        getDriver().switchTo().defaultContent();//выходим из фрейма
+        //проверяем что мы авторизовались
+        String user = mainPage.getTextUserNameMenu();
+        Assert.assertEquals(ConfProperties.getProperty("mail"), user);
+        //System.out.println(user);
+        try {
+            //Проверяем банер и закрываем его
+            mainPage.clickCloseBanner();
+        } catch (NoSuchElementException e) {
+            //если банера нет то ещё лучше
+            System.out.println("банера нет");
+            //идём дальше
         }
     }
 
-    public static void sendLetter() {
+    public void sendLetter() {
 
-            //кликаем на написать письмо
-            mainPage.clickWriteLetterBtn();
-            //Проверяем что открылась форма создания письма
-            Assert.assertEquals(letterPage.komuText(), "Кому");
-            //Заполняем адресата
-            letterPage.inputReceiverField(ConfProperties.getProperty("mail"));
-            //Заполняем тему
-            letterPage.inputSummaryField(ConfProperties.getProperty("summaryLetter"));
-            //заполнить тело письма
-            letterPage.inputLetterField(ConfProperties.getProperty("textLetter"));
-            //кликаем прикрепить файл
-            letterPage.clickAttachBtn(ConfProperties.getProperty("file"));
-            //Кликаем отправить
-            letterPage.clickSendBtn();
-            //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
-            letterPage.esc();
+        //кликаем на написать письмо
+        mainPage.clickWriteLetterBtn();
+        //Проверяем что открылась форма создания письма
+        Assert.assertEquals(letterPage.komuText(), "Кому");
+        //Заполняем адресата
+        letterPage.inputReceiverField(ConfProperties.getProperty("mail"));
+        //Заполняем тему
+        letterPage.inputSummaryField();
+        //заполнить тело письма
+        letterPage.inputLetterField(ConfProperties.getProperty("textLetter"));
+        //кликаем прикрепить файл
+        letterPage.clickAttachBtn(ConfProperties.getProperty("file"));
+        //Кликаем отправить
+        letterPage.clickSendBtn();
+        //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
+        letterPage.esc();
 
-        }
+    }
 
 
-    public static void checkingMail() {
+    public void checkingMail() {
 
         //Кликаем на Входящие
         mainPage.clickInboxBtn();
@@ -80,24 +102,23 @@ public class LoginAndSendMail {
         //Получаем текст письма и сравниваем с тем что отправляли
         Assert.assertEquals(mainPage.getTextInLetter(), ConfProperties.getProperty("textLetter"));
         //Проверяем наместе ли файл
-        //Assert.assertEquals(mainPage.getFileName(), ConfProperties.getProperty("autoTest.doc"));
+        //Assert.assertEquals(mainPage.getFileName(), helpers.ConfProperties.getProperty("autoTest.doc"));
         //Скачиваем файл
         mainPage.downloadFile();
 
 
     }
-
-    public static void checkingSign(){
+    public void checkingSign(){
         //Получаем подпись и сравниваем с тем что наизменяли
         Assert.assertEquals(letterPage.getSignText(),fuckingSignature);
     }
 
-    public static void goToIncoming(){
-       //переход во входящие
-       mainPage.clickInboxBtn();
+    public void goToIncoming(){
+        //переход во входящие
+        mainPage.clickInboxBtn();
     }
 
-    public static void signСhange() {
+    public void signСhange() {
 
 
         //Переходим в настроки учетки
@@ -142,10 +163,10 @@ public class LoginAndSendMail {
         allSettingPage.clickGoMailBtn();
     }
 
-    public static void deleteLetter() {
+    public void deleteLetter() {
         try {
             //выделяем
-            mainPage.clickAllCheckboxAboutLettter();
+            mainPage.clickAllCheckboxAboutLetter();
             //Удаляем
             mainPage.clickDeleteLeterBtn();
             //Проверяем что удалилось
@@ -159,7 +180,4 @@ public class LoginAndSendMail {
 
 
     }
-
-
-
 }

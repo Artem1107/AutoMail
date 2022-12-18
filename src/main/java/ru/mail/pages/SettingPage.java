@@ -4,18 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.mail.steps.Base;
 
-public class SettingPage {
-    private final WebDriver driver;
+public class SettingPage extends Base {
 
-    public SettingPage (WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     //Кнопка Все Настройки
     @FindBy(xpath = "//span[text()='Все настройки']")
     private WebElement allSettingsBtn;
+
+    public SettingPage(WebDriver driver) {
+        super(driver);
+    }
 
     //метод перехода во все настройки
     public void clickAllSettingsBtn() {

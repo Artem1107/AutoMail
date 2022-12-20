@@ -10,89 +10,87 @@ import ru.mail.steps.Base;
 
 public class LetterPage extends Base {
 
-
-    /**
-     * Описание элементов
-     */
-    //Фрейм написания письма
-
-    //То что идентифицирует форму создания письма, пусть будет название кнопки "Кому"
-    @FindBy(xpath = "//button[@class='container--2lPGK type_base--rkphf color_secondary--2J-6y link--EcxEU inline--PKmCd']")
-    private WebElement komu;
-
-    //Поле кому
-    @FindBy(xpath = "//label[@class=\"container--zU301\"]")
-    private WebElement receiverField;
-
-    //Поле Тема
-    @FindBy(xpath = "//div[@class='container--3QXHv']/div/input")
-    private WebElement summaryField;
-
-    //Поле тела письма
-    @FindBy(xpath = "//div[@role='textbox']")
-    private WebElement letterField;
-
-    //Поле подписи письма
-    @FindBy(xpath = "//div[@data-signature-widget='content']")
-    private WebElement signField;
-
-    //Кнопка Отправить
-    @FindBy(xpath = "//span[text()='Отправить']")
-    private WebElement sendBtn;
-
-    //Кнопка Прикрепить файл
-    @FindBy(xpath = "//input[@class = 'desktopInput--3cWPE']")
-    private WebElement attachBtn;
-
     public LetterPage(WebDriver driver) {
         super(driver);
     }
 
+
+    @FindBy(xpath = "//button[@class='container--2lPGK type_base--rkphf color_secondary--2J-6y link--EcxEU inline--PKmCd']")
+    private WebElement komu;
+
+    @FindBy(xpath = "//label[@class=\"container--zU301\"]")
+    private WebElement receiverField;
+
+    @FindBy(xpath = "//div[@class='container--3QXHv']/div/input")
+    private WebElement summaryField;
+
+    @FindBy(xpath = "//div[@role='textbox']")
+    private WebElement letterField;
+
+    @FindBy(xpath = "//div[@data-signature-widget='content']")
+    private WebElement signField;
+
+    @FindBy(xpath = "//span[text()='Отправить']")
+    private WebElement sendBtn;
+
+    @FindBy(xpath = "//input[@class = 'desktopInput--3cWPE']")
+    private WebElement attachBtn;
+
+
     /**
-     * Методы
+     * Метод для получения текста подсказки
      */
-
-    //метод для получения текста подсказки
     public String komuText() {
-        String text = getText(komu);
-        return text;
+        return getText(komu);
     }
 
-    //метод для получения текста подписи
+    /**
+     * метод для получения текста подписи
+     */
     public String getSignText() {
-        String iconText = getText(signField);
-        return iconText;
+        return getText(signField);
     }
 
-    //Метод ввода темы
+    /**
+     * Метод ввода темы
+     */
     public void inputSummaryField() {
         inputText(summaryField, ConfProperties.getProperty("summaryLetter"));
     }
 
-    //Метод ввода адреста
-    public void inputReceiverField(String summary) {
-        receiverField.sendKeys(summary);
+    /**
+     * Метод ввода адреста
+     */
+    public void inputReceiverField() {
+        inputText(receiverField, ConfProperties.getProperty("mail"));
     }
 
-    //Метод ввода тела письма
-    public void inputLetterField(String text) {
-        //letterField.click();
-        letterField.sendKeys(text);
+    /**
+     * Метод ввода тела письма
+     */
+    public void inputLetterField() {
+        inputText(letterField, ConfProperties.getProperty("textLetter"));
     }
 
-    //метод нажатия на Отправить
+    /**
+     * метод нажатия на Отправить
+     */
     public void clickSendBtn() {
-        sendBtn.click();
+        click(sendBtn);
     }
 
-    //кликнем ескейп
-    public void esc() {
-        driver.findElement(By.xpath("//a[@class='layer__link']")).sendKeys(Keys.ESCAPE);
-    }
+    /**
+     * кликнем ескейп
+     */
+    //public void esc() {
+        //getDriver().;
+  //  }
 
-    //клик на прикрепить файл
-    public void clickAttachBtn(String text) {
-        attachBtn.sendKeys(text);
+    /**
+     * клик на прикрепить файл
+     */
+    public void clickAttachBtn() {
+        inputText(attachBtn, ConfProperties.getProperty("file"));
     }
 
 }

@@ -48,7 +48,11 @@ public class Base {
     public void inputText(final WebElement element, String text) {
         waitVisibalElement(element, sec);
         element.sendKeys(text);
+    }
 
+    public void clear(final WebElement element) {
+        waitVisibalElement(element, sec);
+        element.clear();
     }
 
 

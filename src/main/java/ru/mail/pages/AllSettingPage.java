@@ -3,75 +3,74 @@ package ru.mail.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import ru.mail.steps.Base;
 
 
 public class AllSettingPage extends Base {
-
-
-
-    // блок Имя и подпись
-    @FindBy(xpath = "//p[text()='Изменить имя отправителя, добавить и изменить подпись']")
-    private WebElement nameSignBtn;
-
-    //Кнопка редактировать имя иподпись
-    @FindBy(xpath = "//button[@data-test-id='edit']")
-    private WebElement editSignBtn;
-
-
-    //Текст подписи
-    @FindBy(xpath = "//div[@role='textbox']")
-    private WebElement signText;
-
-    //Сохранить подпись
-    @FindBy(xpath = "//div[@class='SignatureEditPopup__buttons--1Q_w0']/button")
-    private WebElement saveSignBtn;
-
-    //Кнопка вернуться в почту
-    @FindBy(xpath = "//span[text()='Вернуться в почту']")
-    private WebElement goMailBtn;
 
     public AllSettingPage(WebDriver driver) {
         super(driver);
     }
 
 
+    @FindBy(xpath = "//p[text()='Изменить имя отправителя, добавить и изменить подпись']")
+    private WebElement nameSignBtn;
+
+    @FindBy(xpath = "//button[@data-test-id='edit']")
+    private WebElement editSignBtn;
+
+    @FindBy(xpath = "//div[@role='textbox']")
+    private WebElement signText;
+
+    @FindBy(xpath = "//div[@class='SignatureEditPopup__buttons--1Q_w0']/button")
+    private WebElement saveSignBtn;
+
+    @FindBy(xpath = "//span[text()='Вернуться в почту']")
+    private WebElement goMailBtn;
+
+
     /**
-     * Методы
+     * метод перехода в блок Имя и подпись
      */
-    //метод перехода в блок Имя и подпись
     public void clickNameSignBtn() {
-        nameSignBtn.click();}
+        click(nameSignBtn);
+    }
 
-    //клик на иконку изменения имени и подписи
+    /**
+     * клик на иконку изменения имени и подписи
+     */
     public void clickEditSignBtn() {
-        editSignBtn.click();}
-
-    //метод изменения подписи
-    public void editSignText (String sing){
-        signText.clear();
-        signText.sendKeys(sing);
+        click(editSignBtn);
     }
 
-    //метод получения текста подписи
-    public String getSignText (){
-        String text = signText.getText();
-        return text;
+    /**
+     * клик на иконку изменения имени и подписи
+     */
+    public void editSignText() {
+        clear(signText);
+        inputText(signText, "QA " + Math.random());
     }
-    //клик на сохранить
+
+    /**
+     * метод получения текста подписи
+     */
+    public String getSignText() {
+        return getText(signText);
+    }
+
+    /**
+     * клик на сохранить
+     */
     public void clickSaveSignBtn() {
-        saveSignBtn.click();}
+        click(saveSignBtn);
+    }
 
-    //клик вернуться в почту
+    /**
+     * клик вернуться в почту
+     */
     public void clickGoMailBtn() {
-        goMailBtn.click();}
-
-
-
-
-
-
+        click(goMailBtn);
+    }
 
 
 }

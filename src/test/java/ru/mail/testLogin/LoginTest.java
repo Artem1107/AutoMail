@@ -25,20 +25,27 @@ public class LoginTest extends BaseDriverClass {
         settingPage = new SettingPage(getDriver());
         letterPage = new LetterPage(getDriver());
         allSettingPage = new AllSettingPage(getDriver());
-       login();
-       sendLetter();
-       checkingMail();
-       signСhange();
-       sendLetter();
-       checkingMail();
-       checkingSign();
-       goToIncoming();
-       deleteLetter();
+        start();
+        login();
+        sendLetter();
+        checkingMail();
+        signСhange();
+        sendLetter();
+        checkingMail();
+        checkingSign();
+        goToIncoming();
+        deleteLetter();
     }
-     String fuckingSignature;
+
+    String fuckingSignature;
+
+    public void start() {
+        getDriver().get(ConfProperties.getProperty("loginPage"));
+    }
+
 
     public void login() {
-
+        getDriver().get(ConfProperties.getProperty("loginPage"));
         // Кликаем войти
         startPage.clickEntryBtn();
         //Вводим логин
@@ -72,17 +79,17 @@ public class LoginTest extends BaseDriverClass {
         //Проверяем что открылась форма создания письма
         Assert.assertEquals(letterPage.komuText(), "Кому");
         //Заполняем адресата
-        letterPage.inputReceiverField(ConfProperties.getProperty("mail"));
+        letterPage.inputReceiverField();
         //Заполняем тему
         letterPage.inputSummaryField();
         //заполнить тело письма
-        letterPage.inputLetterField(ConfProperties.getProperty("textLetter"));
+        letterPage.inputLetterField();
         //кликаем прикрепить файл
-        letterPage.clickAttachBtn(ConfProperties.getProperty("file"));
+        letterPage.clickAttachBtn();
         //Кликаем отправить
         letterPage.clickSendBtn();
         //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
-        letterPage.esc();
+       // letterPage.esc();
 
     }
 
@@ -108,12 +115,13 @@ public class LoginTest extends BaseDriverClass {
 
 
     }
-    public void checkingSign(){
+
+    public void checkingSign() {
         //Получаем подпись и сравниваем с тем что наизменяли
-        Assert.assertEquals(letterPage.getSignText(),fuckingSignature);
+        Assert.assertEquals(letterPage.getSignText(), fuckingSignature);
     }
 
-    public void goToIncoming(){
+    public void goToIncoming() {
         //переход во входящие
         mainPage.clickInboxBtn();
     }
@@ -129,16 +137,14 @@ public class LoginTest extends BaseDriverClass {
 
         //помещаем 1 вкладку в отдельную переменную
         String window1 = driver.getWindowHandle();
-        System.out.println("урл страницы " + driver.getCurrentUrl());
+        System.out.println("урл страницы " + getDriver().getCurrentUrl());
 
         //Переходим во все настроки
         settingPage.clickAllSettingsBtn();
 
         /*Тут открывается новая вкладка*/
-        /**
-         *Потом вынести в отдельный метод
-         */
-        Set<String> curentWindows = driver.getWindowHandles();//получаем все вкладки
+
+        Set<String> curentWindows = getDriver().getWindowHandles();//получаем все вкладки
         String window2 = null;
         for (String window : curentWindows) {
             if (!window.equals(window1)) { //сравниваем с первым окном
@@ -147,15 +153,15 @@ public class LoginTest extends BaseDriverClass {
             }
         }
 
-        driver.switchTo().window(window2);// переключаемся на другую вкладку
-        System.out.println("урл страницы 2 " + driver.getCurrentUrl());
+        getDriver().switchTo().window(window2);// переключаемся на другую вкладку
+        //System.out.println("урл страницы 2 " + driver.getCurrentUrl());
 
         //Переходим в блок Имя и подпись
         allSettingPage.clickNameSignBtn();
         //Клкаем редактировать
         allSettingPage.clickEditSignBtn();
         //измненяем подпись
-        allSettingPage.editSignText("QA " + Math.random());
+        allSettingPage.editSignText();
         fuckingSignature = allSettingPage.getSignText();
         //созраняем новую подпись
         allSettingPage.clickSaveSignBtn();
@@ -172,11 +178,9 @@ public class LoginTest extends BaseDriverClass {
             //Проверяем что удалилось
             Assert.assertEquals(mainPage.getTextLetterNo(), "Писем нет");
             System.out.println(mainPage.getTextLetterNo());
-        }
-        catch (NoSuchElementException | InterruptedException e){
+        } catch (NoSuchElementException | InterruptedException e) {
 
         }
-
 
 
     }

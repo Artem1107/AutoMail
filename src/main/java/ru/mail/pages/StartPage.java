@@ -11,7 +11,7 @@ public class StartPage extends Base {
         super(driver);
     }
 
-    @FindBy(xpath = "//button[@class=\"resplash-btn resplash-btn_primary resplash-btn_mailbox-big svelte-1y37831\"]")
+    @FindBy(xpath = "//button[@class='resplash-btn resplash-btn_primary resplash-btn_mailbox-big svelte-1y37831']")
     private WebElement entryBtn;
 
     /**

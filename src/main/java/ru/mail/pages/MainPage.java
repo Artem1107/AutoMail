@@ -140,7 +140,9 @@ public class MainPage extends Base {
      * метод закрытия банера
      */
     public void clickCloseBanner() {
-        click(closeBanner);
+        if (waitVisibalElement(closeBanner, 5)) {
+            click(closeBanner);
+        }
     }
 
     /**
@@ -190,11 +192,11 @@ public class MainPage extends Base {
      */
     public void downloadFile() {
         click(downloadFile);
-       /* try {
+        try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     /**

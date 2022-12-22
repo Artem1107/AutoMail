@@ -38,7 +38,10 @@ public class BaseDriverClass {
                     e.printStackTrace();
                 }
                 driver = new RemoteWebDriver(url, options);
+
             }
+
+
 
             @Override
             protected void succeeded(Description description) {

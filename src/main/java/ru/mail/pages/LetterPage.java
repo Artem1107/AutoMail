@@ -1,12 +1,11 @@
 package ru.mail.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.mail.helpers.ConfProperties;
 import ru.mail.steps.Base;
+
 
 public class LetterPage extends Base {
 
@@ -35,6 +34,16 @@ public class LetterPage extends Base {
 
     @FindBy(xpath = "//input[@class = 'desktopInput--3cWPE']")
     private WebElement attachBtn;
+
+    @FindBy(xpath = "//a[text()='Письмо отправлено']")
+    private WebElement letterSent;
+
+    @FindBy(xpath = "//div[@class='nav__folder-name__txt' and text() = 'Входящие'] ")
+    private WebElement incoming2;
+
+
+
+
 
 
     /**
@@ -80,11 +89,12 @@ public class LetterPage extends Base {
     }
 
     /**
-     * кликнем ескейп
+     * кликаем на "Письмо отправлено на банере" и переходим во входящие
      */
-    //public void esc() {
-        //getDriver().;
-  //  }
+    public void clickLetterSent() {
+        click(letterSent);
+        click(incoming2);
+    }
 
     /**
      * клик на прикрепить файл

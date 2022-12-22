@@ -27,6 +27,7 @@ public class LoginTest extends BaseDriverClass {
         allSettingPage = new AllSettingPage(getDriver());
         start();
         login();
+        closeBaner();
         sendLetter();
         checkingMail();
         signСhange();
@@ -45,143 +46,235 @@ public class LoginTest extends BaseDriverClass {
 
 
     public void login() {
-        getDriver().get(ConfProperties.getProperty("loginPage"));
-        // Кликаем войти
+        /**
+         * Кликаем войти
+         */
         startPage.clickEntryBtn();
-        //Вводим логин
-        authorizationPage.frame();//переключаемся в фрейм
+
+        /**
+         * переключаемся в фрейм
+         */
+        authorizationPage.frame();
+
+        /**
+         * Вводим логин
+         */
         authorizationPage.inputLogin();
-        //Кликаем ввести пароль
+
+        /**
+         * Кликаем ввести пароль
+         */
         authorizationPage.clickGoInputPassBtn();
-        //Вводим пароль
+
+        /**
+         * Вводим пароль
+         */
         authorizationPage.inputPassword();
-        //Кликаем войти
+
+        /**
+         * Кликаем войти
+         */
         authorizationPage.clickEntryBtn();
-        getDriver().switchTo().defaultContent();//выходим из фрейма
-        //проверяем что мы авторизовались
+
+        /**
+         * Выходим из фрейма
+         */
+        getDriver().switchTo().defaultContent();
+
+        /**
+         * проверяем что мы авторизовались
+         */
         String user = mainPage.getTextUserNameMenu();
         Assert.assertEquals(ConfProperties.getProperty("mail"), user);
-        //System.out.println(user);
-        try {
-            //Проверяем банер и закрываем его
-            mainPage.clickCloseBanner();
-        } catch (NoSuchElementException e) {
-            //если банера нет то ещё лучше
-            System.out.println("банера нет");
-            //идём дальше
-        }
+
+    }
+
+    public  void closeBaner(){
+        /**
+         * Закрываем банер
+         */
+        mainPage.clickCloseBanner();
     }
 
     public void sendLetter() {
 
-        //кликаем на написать письмо
+        /**
+         * кликаем на написать письмо
+         */
         mainPage.clickWriteLetterBtn();
-        //Проверяем что открылась форма создания письма
-        Assert.assertEquals(letterPage.komuText(), "Кому");
-        //Заполняем адресата
-        letterPage.inputReceiverField();
-        //Заполняем тему
-        letterPage.inputSummaryField();
-        //заполнить тело письма
-        letterPage.inputLetterField();
-        //кликаем прикрепить файл
-        letterPage.clickAttachBtn();
-        //Кликаем отправить
-        letterPage.clickSendBtn();
-        //Нажимаем на эскейп чтоб закрыть окно писмо отправлено
-       // letterPage.esc();
 
+        /**
+         * Проверяем что открылась форма создания письма
+         */
+        Assert.assertEquals(letterPage.komuText(), "Кому");
+
+        /**
+         * Заполняем адресата
+         */
+        letterPage.inputReceiverField();
+
+        /**
+         * Заполняем тему
+         */
+        letterPage.inputSummaryField();
+
+        /**
+         * заполнить тело письма
+         */
+        letterPage.inputLetterField();
+
+        /**
+         * кликаем прикрепить файл
+         */
+        letterPage.clickAttachBtn();
+
+        /**
+         * Кликаем отправить
+         */
+        letterPage.clickSendBtn();
+
+        /**
+         * Нажимаем письмо отправлено на банере
+         */
+        letterPage.clickLetterSent();
     }
 
 
     public void checkingMail() {
 
-        //Кликаем на Входящие
+        /**
+         * Кликаем на Входящие
+         */
         mainPage.clickInboxBtn();
-        //Нажимаем Письма себе
+
+        /**
+         * Нажимаем Письма себе
+         */
         mainPage.clickLetterYourself();
-        //Получаем тему входящего письма сравниваем тему письма с тем что отправили
+
+        /**
+         * Получаем тему входящего письма сравниваем тему письма с тем что отправили
+         */
         Assert.assertEquals(mainPage.getSummaryLetter(), ConfProperties.getProperty("summaryLetter"));
-        //Открываем письмо
+
+        /**
+         * Открываем письмо
+         */
         mainPage.clickSummaryLetter();
-        //Получаем тему письма и сравниваем с тем что отправляли
+
+        /**
+         * Получаем тему письма и сравниваем с тем что отправляли
+         */
         Assert.assertEquals(mainPage.getSummaryInLetter(), ConfProperties.getProperty("summaryLetter"));
-        //Получаем текст письма и сравниваем с тем что отправляли
+
+        /**
+         * Получаем текст письма и сравниваем с тем что отправляли
+         */
         Assert.assertEquals(mainPage.getTextInLetter(), ConfProperties.getProperty("textLetter"));
-        //Проверяем наместе ли файл
-        //Assert.assertEquals(mainPage.getFileName(), helpers.ConfProperties.getProperty("autoTest.doc"));
-        //Скачиваем файл
+
+        /**
+         * Скачиваем файл
+         */
         mainPage.downloadFile();
-
-
     }
 
     public void checkingSign() {
-        //Получаем подпись и сравниваем с тем что наизменяли
+        /**
+         * Получаем подпись и сравниваем с тем что наизменялил
+         */
         Assert.assertEquals(letterPage.getSignText(), fuckingSignature);
     }
 
     public void goToIncoming() {
-        //переход во входящие
+        /**
+         * переход во входящие
+         */
         mainPage.clickInboxBtn();
     }
 
     public void signСhange() {
 
-
-        //Переходим в настроки учетки
+        /**
+         * Переходим в настроки учетки
+         */
         mainPage.clickSettingsBtn();
 
-        //Переходим во все настроки
+        /**
+         * Переходим во все настроки
+         */
         settingPage.clickAllSettingsBtn();
 
-        //помещаем 1 вкладку в отдельную переменную
+        /**
+         * помещаем 1 вкладку в отдельную переменную
+         */
         String window1 = driver.getWindowHandle();
-        System.out.println("урл страницы " + getDriver().getCurrentUrl());
 
-        //Переходим во все настроки
+        /**
+         * Переходим во все настроки
+         */
         settingPage.clickAllSettingsBtn();
 
-        /*Тут открывается новая вкладка*/
-
-        Set<String> curentWindows = getDriver().getWindowHandles();//получаем все вкладки
+        Set<String> curentWindows = getDriver().getWindowHandles();
         String window2 = null;
         for (String window : curentWindows) {
-            if (!window.equals(window1)) { //сравниваем с первым окном
+            if (!window.equals(window1)) {
                 window2 = window;
                 break;
             }
         }
 
-        getDriver().switchTo().window(window2);// переключаемся на другую вкладку
-        //System.out.println("урл страницы 2 " + driver.getCurrentUrl());
+        /**
+         * переключаемся на другую вкладку
+         */
+        getDriver().switchTo().window(window2);
 
-        //Переходим в блок Имя и подпись
+        /**
+         * Переходим в блок Имя и подпись
+         */
         allSettingPage.clickNameSignBtn();
-        //Клкаем редактировать
+
+        /**
+         * Клкаем редактировать
+         */
         allSettingPage.clickEditSignBtn();
-        //измненяем подпись
+
+        /**
+         * измненяем подпись
+         */
         allSettingPage.editSignText();
         fuckingSignature = allSettingPage.getSignText();
-        //созраняем новую подпись
+
+        /**
+         * сохраняем новую подпись
+         */
         allSettingPage.clickSaveSignBtn();
-        //Возвращаемся в почту
+
+        /**
+         * Возвращаемся в почту
+         */
         allSettingPage.clickGoMailBtn();
     }
 
     public void deleteLetter() {
         try {
-            //выделяем
+            /**
+             * выделяем
+             */
             mainPage.clickAllCheckboxAboutLetter();
-            //Удаляем
+
+            /**
+             * Удаляем
+             */
             mainPage.clickDeleteLeterBtn();
-            //Проверяем что удалилось
+
+            /**
+             * Проверяем что удалилось
+             */
             Assert.assertEquals(mainPage.getTextLetterNo(), "Писем нет");
-            System.out.println(mainPage.getTextLetterNo());
+
         } catch (NoSuchElementException | InterruptedException e) {
 
         }
-
 
     }
 }

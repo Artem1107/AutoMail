@@ -67,7 +67,7 @@ public class MainPage extends Base {
     @FindBy(xpath = "//span[@class='button2 button2_has-ico button2_has-ico-s button2_delete button2_pure button2_ico-text-top button2_hover-support js-shortcut']")
     private WebElement deleteLeterBtn;
 
-    @FindBy(xpath = ".//span[@class='octopus__title']")
+    @FindBy(xpath = "//span[text()='Писем нет']")
     private WebElement letterNo;
 
     @FindBy(xpath = "//div[@class = 'wrapperBg-0-2-21']")
@@ -84,9 +84,9 @@ public class MainPage extends Base {
      * Получаем все чекбоксы письма и кликаем на них
      */
     public void clickAllCheckboxAboutLetter() throws InterruptedException {
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(getDriver());
 
-        List<WebElement> icons = driver.findElements(By.xpath("//span[@class='ll-av__img']"));
+        List<WebElement> icons = getDriver().findElements(By.xpath("//span[@class='ll-av__img']"));
         for (WebElement icon : icons) {
             actions.moveToElement(icon).click().perform();
         }
